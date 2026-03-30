@@ -1,0 +1,31 @@
+During the development of this script on RHEL 9 / Rocky 9, we identified that SSH hardening failure is rarely caused by a single setting. Instead, it is usually a break in the Authentication Chain.
+
+Below is a summary of the technical hurdles resolved in this version of the script:
+
+1. SELinux Enforcement
+Issue: Changing the SSH port to 2222 or modifying home directory permissions triggers SELinux denials.
+
+Impact: The SSH daemon will silently refuse connections even if the firewall is open.
+
+Fix: The script automates semanage port labeling and restorecon -Rv to ensure the security context is compliant.
+
+2. PAM & Account "Stale" State
+Issue: Newly created users (via useradd) often exist in an "uninitialized" state in the shadow file.
+
+Impact: PAM (Pluggable Authentication Modules) may require a password change on first login, which SSH rejects for remote sessions.
+
+Fix: We use chage -d $(date +%F) to manually activate the account, allowing immediate remote login.
+
+3. Sub-configuration Conflicts (sshd_config.d)
+Issue: RHEL 9 introduces a modular directory /etc/ssh/sshd_config.d/.
+
+Impact: Files in this directory are loaded with high priority and can override PermitRootLogin no or other settings in the main sshd_config.
+
+Fix: The script flushes conflicting .conf files to ensure a "Single Source of Truth."
+
+4. Missing Authentication Protocols
+Issue: Modern RHEL versions favor Key-based auth and may ignore legacy Password or Keyboard-Interactive methods by default.
+
+Impact: Users get "Permission Denied" even with the correct password.
+
+Fix: The script explicitly enforces PasswordAuthentication, KbdInteractiveAuthentication, and UsePAM to ensure the login prompt is triggered.
