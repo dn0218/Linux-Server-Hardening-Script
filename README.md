@@ -113,5 +113,6 @@ We leverage `cron.d` for robust, standard scheduling. In RHEL, this is the compl
 After running the script, we verify the end-to-end security by attempting an external connection using the newly configured user and port.
 
 **Screenshot 5: Successful external login from a management machine.**
-![External Login](screenshots/05_external_login.png)
+![External Login]<img width="757" height="502" alt="image" src="https://github.com/user-attachments/assets/9eb562e6-2da2-4194-97bc-e963aee200cc" />
+
 *The prompt `[sysadmin@rhel ~]$` confirms we successfully bypassed root, used the hardened port, and have an operational server.*
