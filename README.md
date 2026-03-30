@@ -14,6 +14,18 @@ This repository contains a professional Bash script to automate the initial hard
 - Firewalld & SELinux configuration
 - Logical task scheduling (Cron)
 
+### 🚀 How to Run
+\`\`\`bash
+# Download the script
+curl -O https://raw.githubusercontent.com/dn0218/Linux-Server-Hardening-Script/main/hardening.sh
+
+# Grant execution rights
+chmod +x hardening.sh
+
+# Execute as root
+sudo ./hardening.sh
+\`\`\`
+
 ## ⚠️ Troubleshooting & Lessons Learned
 
 ### 1. SELinux & SSH Port Change
