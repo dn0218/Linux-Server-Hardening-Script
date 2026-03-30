@@ -71,7 +71,8 @@ We utilize `useradd` with the `-G wheel` flag. In RHEL-based systems, the `wheel
 We use `firewall-cmd --permanent` to ensure rules survive reboots, followed by a `--reload` to activate them without dropping current connections.
 
 **Screenshot 2: Inspecting the active firewall zones and services.**
-![Firewall Check](screenshots/02_firewall_status.png)
+![Firewall Check]<img width="662" height="291" alt="image" src="https://github.com/user-attachments/assets/bf0da2e4-3554-4eac-b9ee-ae5876b47222" />
+
 *Output confirms only `ssh`, `http`, `https` services and port `2222/tcp` are public.*
 
 ---
@@ -86,7 +87,8 @@ We use `firewall-cmd --permanent` to ensure rules survive reboots, followed by a
 This is the most critical step on RHEL 9. Modifying `/etc/ssh/sshd_config` alone will cause the service to fail because SELinux, by default, blocks SSH from running on non-standard ports.
 
 **Screenshot 3: Proof of successful SSHD service on Port 2222, and its SELinux labeling.**
-![SSH & SELinux Check](screenshots/03_sshd_selinux.png)
+![SSH & SELinux Check]<img width="678" height="313" alt="image" src="https://github.com/user-attachments/assets/d8fb66e2-5169-4bab-8620-8f3018d2efe0" />
+
 *Left: `systemctl status sshd` shows 'active (running)' on custom port. Right: `semanage port -l` confirms port `2222` is registered as a legal `ssh_port_t`.*
 
 ---
@@ -100,7 +102,8 @@ Outdated software is the #1 vector for successful exploits. While manual updates
 We leverage `cron.d` for robust, standard scheduling. In RHEL, this is the compliant way to schedule system-level automation.
 
 **Screenshot 4: Verifying the created Cron job for automated daily updates.**
-![Cron Check](screenshots/04_cron_check.png)
+![Cron Check]<img width="567" height="37" alt="image" src="https://github.com/user-attachments/assets/341a9dab-0d8d-4e2f-a85e-c6633630636a" />
+
 *`0 2 * * * root dnf update -y` means: Every day at 02:00, run the complete dnf update.*
 
 ---
